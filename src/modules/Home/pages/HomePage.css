@@ -1,7 +1,18 @@
+.grid-view {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+}
+
 .homepage-card {
   border: 1px solid #ccc;
   border-radius: 8px;
   overflow: hidden;
   margin: 16px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: rgba(232, 202, 202, 0.1);
+  width: 300px;
+  height: 300px;
+  cursor: pointer;
+  text-align: center;
 }
