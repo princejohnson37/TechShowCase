@@ -1,16 +1,17 @@
 /* eslint-disable react/no-unknown-property */
 import React from "react";
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
+import { Circle, Loader, OrbitControls } from "@react-three/drei";
 import GLBModel from "../Components/GlbLoader";
 import { DirectionalLightFollowingCamera } from "../Components/DirectionalLight";
 const Viewer = () => {
   return (
-    <div 
+    <div
       style={{
-        height: '100vh'
-      }} 
+        height: "100vh",
+      }}
     >
+      <Loader />
       <Canvas camera={{ fov: 75, position: [1, 0.5, 0] }}>
         <directionalLight position={[0, 10, 5]} intensity={1} />
         <React.Suspense fallback={null}>
