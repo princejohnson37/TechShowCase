@@ -1,6 +1,6 @@
-import * as React from "react";
 import { createBrowserRouter } from "react-router-dom";
 import HomePage from "../modules/Home/pages/HomePage";
+import Viewer from "../modules/Viewer/Pages/Viewer";
 
 const router = createBrowserRouter([
   {
@@ -9,7 +9,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/viewer",
-    element: <div>Hello viewer!</div>,
+    element: <Viewer/>,
   },
 ]);
 

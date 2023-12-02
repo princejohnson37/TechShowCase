@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 
 const HomePage = () => {
   const navigate = useNavigate();
+  // eslint-disable-next-line no-unused-vars
   const [projectList, setProjectList] = useState([
     { projectName: "First Project" },
     { projectName: "Second Project" },
