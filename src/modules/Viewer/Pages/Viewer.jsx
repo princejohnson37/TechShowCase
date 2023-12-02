@@ -3,18 +3,24 @@ import React from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import GLBModel from "../Components/GlbLoader";
+import { DirectionalLightFollowingCamera } from "../Components/DirectionalLight";
 const Viewer = () => {
   return (
-    <>
-      <Canvas>
-        <ambientLight intensity={0.5} />
-        <pointLight position={[10, 10, 10]} />
+    <div 
+      style={{
+        height: '100vh'
+      }} 
+    >
+      <Canvas camera={{ fov: 75, position: [1, 0.5, 0] }}>
+        <directionalLight position={[0, 10, 5]} intensity={1} />
         <React.Suspense fallback={null}>
-          <GLBModel glbPath={'/models/wolf_skull.glb'} />
+          <GLBModel glbPath={"/models/wolf_skull.glb"} />
         </React.Suspense>
-        <OrbitControls />
+        <OrbitControls target={[0, 0, 0]} />
+        <DirectionalLightFollowingCamera />
       </Canvas>
-    </>
+    </div>
   );
 };
+
 export default Viewer;

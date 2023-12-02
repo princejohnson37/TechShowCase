@@ -5,7 +5,7 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
 const GLBModel = ({ glbPath }) => {
   const glb = useLoader(GLTFLoader, glbPath);
-  return <primitive object={glb.scene} />;
+  return <primitive object={glb.scene} scale={2}/>;
 };
 
 GLBModel.propTypes = {
