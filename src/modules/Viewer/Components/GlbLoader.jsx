@@ -12,8 +12,12 @@ const GLBModel = ({ glbPath, onClick }) => {
   const glb = useLoader(GLTFLoader, glbPath);
 
   return (
-    <mesh onClick={handleClick} onPointerUp={handleUnclick} ref={modelRef}>
-      <primitive object={glb.scene} scale={2} />
+    <mesh
+      onDoubleClick={handleClick}
+      onPointerUp={handleUnclick}
+      ref={modelRef}
+    >
+      <primitive object={glb.scene} scale={3} />
     </mesh>
   );
 };

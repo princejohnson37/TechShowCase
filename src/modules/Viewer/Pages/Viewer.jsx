@@ -14,9 +14,10 @@ const Viewer = () => {
   const [mode, setMode] = useState("");
   const [text, setText] = useState("");
   const [dots, setDots] = useState([]);
-  // useEffect(() => {
-  //   console.log("dots", dots);
-  // }, [dots]);
+  const [isClicked, setIsClicked] = useState(false);
+  useEffect(() => {
+    console.log("isclicked", isClicked);
+  }, [isClicked]);
 
   const handleTextChange = (event) => {
     setText(event.target.value);
@@ -47,7 +48,10 @@ const Viewer = () => {
     setDots((prevDots) => [...prevDots, coordinates]);
   };
   const handleModelClick = (point) => {
-    addDot(point);
+    if (mode === SIDE_MENU_BTNS.annotationBtn.btnId) {
+      addDot(point);
+      setIsClicked(true);
+    }
   };
 
   return (
@@ -64,14 +68,19 @@ const Viewer = () => {
           <React.Suspense fallback={null}>
             <GLBModel
               glbPath={"/models/wolf_skull.glb"}
-              onClick={
-                mode === SIDE_MENU_BTNS.viewAnnotationBtn.btnId
-                  ? handleModelClick
-                  : () => {}
-              }
+              onClick={handleModelClick}
             />
-            {mode === SIDE_MENU_BTNS.annotationBtn.btnId && (
-              <TextBox text={text} handleTextChange={handleTextChange} />
+            {mode === SIDE_MENU_BTNS.annotationBtn.btnId && isClicked && (
+              <>
+                <TextBox
+                  text={text}
+                  handleTextChange={handleTextChange}
+                  position={dots[dots.length - 1]}
+                />
+                {dots.length > 0 && (
+                  <RedDots position={dots[dots.length - 1]} />
+                )}
+              </>
             )}
             {mode === SIDE_MENU_BTNS.viewAnnotationBtn.btnId &&
               dots.map((coordinates, index) => {

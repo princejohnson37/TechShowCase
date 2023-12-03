@@ -1,15 +1,17 @@
 import { Html } from "@react-three/drei";
 
-const TextBox = ({ text, handleTextChange }) => {
+const TextBox = ({ text, handleTextChange, position }) => {
+  const cords = { ...position };
+  // cords.y -= 0.05;
   return (
-    <Html>
+    <Html position={position}>
       <div
-        style={{
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-        }}
+      // style={{
+      //   position: "absolute",
+      //   top: "50%",
+      //   left: "50%",
+      //   transform: "translate(-50%, -50%)",
+      // }}
       >
         <input
           type="text"
@@ -17,7 +19,13 @@ const TextBox = ({ text, handleTextChange }) => {
           onChange={handleTextChange}
           placeholder="Type here"
         />
-        <button onClick={() => {}}>ok</button>
+        <button
+          onClick={() => {
+            const data = {};
+          }}
+        >
+          ok
+        </button>
       </div>
     </Html>
   );

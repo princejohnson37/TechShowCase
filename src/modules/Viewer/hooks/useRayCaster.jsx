@@ -8,18 +8,21 @@ const useRaycaster = (onClick) => {
   const { camera, mouse, scene } = useThree();
   const raycaster = new Raycaster();
   let isClicked = false;
+  const [isClicked2, setIsClicked2] = useState(false);
   const [clickedPoint, setClickedPoint] = useState(null);
 
   const handleClick = () => {
     isClicked = true;
+    setIsClicked2(true);
   };
 
   const handleUnclick = () => {
     isClicked = false;
+    setIsClicked2(false);
   };
 
   useFrame(() => {
-    if (isClicked) {
+    if (isClicked2) {
       raycaster.setFromCamera(mouse, camera);
       const intersects = raycaster.intersectObjects(scene.children);
 
@@ -31,8 +34,9 @@ const useRaycaster = (onClick) => {
         setClickedPoint(firstIntersectWithFace.point);
         onClick(firstIntersectWithFace.point);
       }
+      setIsClicked2(false);
 
-      isClicked = false;
+      // isClicked = false;
     }
   });
 
