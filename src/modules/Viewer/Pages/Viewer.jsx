@@ -1,22 +1,34 @@
 /* eslint-disable react/no-unknown-property */
-import React, { useState, useRef } from "react";
-import { Canvas, useThree } from "@react-three/fiber";
+import React from "react";
+import { Canvas } from "@react-three/fiber";
 import { Loader, OrbitControls } from "@react-three/drei";
+
 import GLBModel from "../Components/GlbLoader";
-import { DirectionalLightFollowingCamera } from "../Components/DirectionalLight";
 import SideMenu from "../Components/SideMenu/SideMenu";
 import TextBox from "../Components/TextBox/TextBox";
-import { SIDE_MENU_BTNS } from "../constants";
 import RedDots from "../Components/RedDots/RedDots";
-import { useEffect } from "react";
+import { DirectionalLightFollowingCamera } from "../Components/DirectionalLight";
+import { SIDE_MENU_BTNS } from "../constants";
+import RaycastingHandler from "../Components/RayCastingHandler";
+import { postAnnotation } from "../services/postAnnotation";
+// import { PostAnnotation } from "../services/postAnnotation";
 
 const Viewer = () => {
-  const [mode, setMode] = useState("");
-  const [text, setText] = useState("");
-  const [dots, setDots] = useState([]);
-  useEffect(() => {
-    console.log("dots", dots);
-  }, [dots]);
+
+  const [mode, setMode] = React.useState("");
+  const [text, setText] = React.useState("");
+  const [dots, setDots] = React.useState([{ x: 0, y:0, z: 0 }]);
+  React.useEffect(() => {
+    const len = dots.length;
+    if(len>1){
+      postAnnotation({
+        x: dots[len-1].x,
+        y: dots[len-1].y,
+        z: dots[len-1].z,
+      })
+    }
+    
+  },[dots]);
 
   const handleTextChange = (event) => {
     setText(event.target.value);
@@ -43,16 +55,6 @@ const Viewer = () => {
     }
   };
 
-  const addDot = (coordinates) => {
-    console.log("coordinates", coordinates);
-    setDots((prevDots) => [...prevDots, coordinates]);
-    console.log("dots", dots);
-  };
-  const handleModelClick = (point) => {
-    console.log([point]);
-    addDot(point);
-  };
-
   return (
     <>
       <SideMenu handleBtnClick={handleBtnClick} />
@@ -67,7 +69,6 @@ const Viewer = () => {
           <React.Suspense fallback={null}>
             <GLBModel
               glbPath={"/models/wolf_skull.glb"}
-              onClick={handleModelClick}
             />
             {mode === SIDE_MENU_BTNS.annotationBtn.btnId && (
               <TextBox text={text} handleTextChange={handleTextChange} />
@@ -76,6 +77,7 @@ const Viewer = () => {
               console.log("something happend");
               return <RedDots key={index} position={coordinates} />;
             })}
+            <RaycastingHandler setDots={setDots}/>
           </React.Suspense>
           <OrbitControls target={[0, 0, 0]} />
           <DirectionalLightFollowingCamera />
