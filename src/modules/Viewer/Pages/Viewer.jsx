@@ -1,24 +1,61 @@
 /* eslint-disable react/no-unknown-property */
-import React, { useState } from "react";
-import { Canvas } from "@react-three/fiber";
-import { Html, Loader, OrbitControls } from "@react-three/drei";
+import React, { useState, useRef } from "react";
+import { Canvas, useThree } from "@react-three/fiber";
+import { Loader, OrbitControls } from "@react-three/drei";
 import GLBModel from "../Components/GlbLoader";
 import { DirectionalLightFollowingCamera } from "../Components/DirectionalLight";
 import SideMenu from "../Components/SideMenu/SideMenu";
 import TextBox from "../Components/TextBox/TextBox";
+import { SIDE_MENU_BTNS } from "../constants";
+import RedDots from "../Components/RedDots/RedDots";
+import { useEffect } from "react";
+
 const Viewer = () => {
-  const [annotationMode, setAnnotationMode] = useState(true);
+  const [mode, setMode] = useState("");
   const [text, setText] = useState("");
+  const [dots, setDots] = useState([]);
+  useEffect(() => {
+    console.log("dots", dots);
+  }, [dots]);
+
   const handleTextChange = (event) => {
     setText(event.target.value);
   };
-  const handleAnnotationModeChange = () => {
-    console.log(annotationMode);
-    setAnnotationMode((prev) => !prev);
+
+  const handleBtnClick = (buttonId) => {
+    switch (buttonId) {
+      case SIDE_MENU_BTNS.annotationBtn.btnId:
+        if (mode === SIDE_MENU_BTNS.annotationBtn.btnId) {
+          setMode("");
+          return;
+        }
+        setMode(SIDE_MENU_BTNS.annotationBtn.btnId);
+        break;
+      case SIDE_MENU_BTNS.viewAnnotationBtn.btnId:
+        if (mode === SIDE_MENU_BTNS.viewAnnotationBtn.btnId) {
+          setMode("");
+          return;
+        }
+        setMode(SIDE_MENU_BTNS.viewAnnotationBtn.btnId);
+        break;
+      default:
+        break;
+    }
   };
+
+  const addDot = (coordinates) => {
+    console.log("coordinates", coordinates);
+    setDots((prevDots) => [...prevDots, coordinates]);
+    console.log("dots", dots);
+  };
+  const handleModelClick = (point) => {
+    console.log([point]);
+    addDot(point);
+  };
+
   return (
     <>
-      <SideMenu value={annotationMode} setValue={handleAnnotationModeChange} />
+      <SideMenu handleBtnClick={handleBtnClick} />
       <div
         style={{
           height: "100vh",
@@ -28,10 +65,17 @@ const Viewer = () => {
         <Canvas camera={{ fov: 75, position: [1, 0.5, 0] }}>
           <directionalLight position={[0, 10, 5]} intensity={1} />
           <React.Suspense fallback={null}>
-            <GLBModel glbPath={"/models/wolf_skull.glb"} />
-            {annotationMode && (
+            <GLBModel
+              glbPath={"/models/wolf_skull.glb"}
+              onClick={handleModelClick}
+            />
+            {mode === SIDE_MENU_BTNS.annotationBtn.btnId && (
               <TextBox text={text} handleTextChange={handleTextChange} />
             )}
+            {dots.map((coordinates, index) => {
+              console.log("something happend");
+              return <RedDots key={index} position={coordinates} />;
+            })}
           </React.Suspense>
           <OrbitControls target={[0, 0, 0]} />
           <DirectionalLightFollowingCamera />
