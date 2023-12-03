@@ -22,11 +22,14 @@ const useRaycaster = (onClick) => {
     if (isClicked) {
       raycaster.setFromCamera(mouse, camera);
       const intersects = raycaster.intersectObjects(scene.children);
-      console.log(intersects);
 
-      if (intersects.length > 0) {
-        setClickedPoint(intersects[0].point);
-        onClick(intersects[0].point);
+      const firstIntersectWithFace = intersects.find(
+        (intersect) => intersect.faceIndex !== null
+      );
+
+      if (firstIntersectWithFace) {
+        setClickedPoint(firstIntersectWithFace.point);
+        onClick(firstIntersectWithFace.point);
       }
 
       isClicked = false;

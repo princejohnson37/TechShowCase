@@ -1,6 +1,6 @@
-const RedDots = ({ key, position }) => {
+const RedDots = ({ position }) => {
   return (
-    <mesh key={key} position={position}>
+    <mesh position={position}>
       <sphereGeometry args={[0.01]} />
       <meshBasicMaterial color="red" />
     </mesh>

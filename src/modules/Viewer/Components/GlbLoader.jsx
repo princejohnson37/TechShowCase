@@ -3,24 +3,18 @@ import PropTypes from "prop-types";
 import { useRef } from "react";
 import { useLoader } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import useRaycaster from "../hooks/useRayCaster";
 
 const GLBModel = ({ glbPath, onClick }) => {
   const modelRef = useRef();
-
-  const handleClick = (event) => {
-    const intersects = event.point;
-    onClick(intersects);
-  };
+  const { handleClick, handleUnclick, clickedPoint } = useRaycaster(onClick);
 
   const glb = useLoader(GLTFLoader, glbPath);
 
   return (
-    <primitive
-      object={glb.scene}
-      scale={2}
-      ref={modelRef}
-      onClick={handleClick}
-    />
+    <mesh onClick={handleClick} onPointerUp={handleUnclick} ref={modelRef}>
+      <primitive object={glb.scene} scale={2} />
+    </mesh>
   );
 };
 
