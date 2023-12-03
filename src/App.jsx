@@ -1,9 +1,16 @@
 import "./App.css";
-import { RouterProvider } from "react-router-dom";
 import router from "./router/Router";
+import { ViewerProvider } from "./modules/Viewer/Context/ViewerContext";
+import { RouterProvider } from "react-router-dom";
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <ViewerProvider>
+        <RouterProvider router={router} />;
+      </ViewerProvider>
+    </>
+  )
 }
 
 export default App;
