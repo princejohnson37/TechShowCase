@@ -3,8 +3,8 @@ import { useState } from "react";
 import { SIDE_MENU_BTNS } from "../../constants";
 import "./SideMenu.css";
 
-const SideMenu = ({ handleBtnClick }) => {
-  const [active, setActive] = useState(null);
+const SideMenu = ({ handleBtnClick, mode }) => {
+  const [active, setActive] = useState(mode);
   return (
     <div className="side-menu-outer">
       <div className="w-100">
@@ -23,6 +23,9 @@ const SideMenu = ({ handleBtnClick }) => {
             </button>
           );
         })}
+      </div>
+      <div className="side-menu-footer">
+        {mode != "" ? `Mode : ${mode}` : ""}
       </div>
     </div>
   );

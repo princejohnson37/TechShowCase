@@ -1,4 +1,5 @@
 /* eslint-disable react/no-unknown-property */
+import { Vector3 } from "three";
 import React, { useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Loader, OrbitControls } from "@react-three/drei";
@@ -9,9 +10,10 @@ import { DirectionalLightFollowingCamera } from "../Components/DirectionalLight"
 import { SIDE_MENU_BTNS } from "../constants";
 import RaycastingHandler from "../Components/RayCastingHandler";
 import { getAllData } from "../../../services/getAllData";
+import { generateUUID } from "three/src/math/MathUtils";
 
 const Viewer = () => {
-  const [mode, setMode] = useState(SIDE_MENU_BTNS.viewAnnotationBtn.btnId);
+  const [mode, setMode] = useState("");
   const [text, setText] = useState("");
   const [dots, setDots] = useState([]);
   const [isClicked, setIsClicked] = useState(false);
@@ -19,10 +21,35 @@ const Viewer = () => {
   const handleTextChange = (event) => {
     setText(event.target.value);
   };
+
   useEffect(() => {
-    const data = getAllData();
-    console.log(data);
-  }, []);
+    const fetchData = async () => {
+      try {
+        const response = await getAllData();
+        return response;
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    const convertCoordinatesToVector3 = (coordinates) => {
+      return new Vector3(coordinates.x, coordinates.y, coordinates.z);
+    };
+
+    const data = fetchData().then((response) => {
+      console.log("response", response);
+
+      // Convert coordinates to Vector3 and include other data
+      const dotsWithCoordinates = response.map((item) => ({
+        coordinates: convertCoordinatesToVector3(item.coordinates),
+        note: item.note,
+        file_id: item.file_id,
+        id: item.id,
+      }));
+
+      setDots(dotsWithCoordinates);
+    });
+  }, [mode]);
 
   const handleBtnClick = (buttonId) => {
     switch (buttonId) {
@@ -58,7 +85,7 @@ const Viewer = () => {
 
   return (
     <>
-      <SideMenu handleBtnClick={handleBtnClick} />
+      <SideMenu handleBtnClick={handleBtnClick} mode={mode} />
       <div
         style={{
           height: "100vh",
@@ -67,32 +94,30 @@ const Viewer = () => {
         <Loader />
         <Canvas camera={{ fov: 75, position: [1, 0.5, 0] }}>
           <directionalLight position={[0, 10, 5]} intensity={1} />
-          <React.Suspense fallback={null}>
-            <GLBModel glbPath={"/models/wolf_skull.glb"} />
-            {mode === SIDE_MENU_BTNS.annotationBtn.btnId &&
-              isClicked &&
-              dots.length > 0 && (
+          <GLBModel glbPath={"/models/wolf_skull.glb"} />
+          {mode === SIDE_MENU_BTNS.annotationBtn.btnId &&
+            isClicked &&
+            dots.length > 0 && (
+              <RedDots
+                position={dots[dots.length - 1]}
+                text={text}
+                setText={setText}
+                isOpen={true}
+              />
+            )}
+          {mode === SIDE_MENU_BTNS.viewAnnotationBtn.btnId &&
+            dots.map((values, index) => {
+              return (
                 <RedDots
-                  position={dots[dots.length - 1]}
-                  text={text}
-                  handleTextChange={handleTextChange}
-                  isOpen={true}
+                  key={index}
+                  position={values.coordinates}
+                  setText={setText}
+                  text={values.note}
+                  isOpen={false}
                 />
-              )}
-            {mode === SIDE_MENU_BTNS.viewAnnotationBtn.btnId &&
-              dots.map((coordinates, index) => {
-                return (
-                  <RedDots
-                    key={index}
-                    position={coordinates}
-                    handleTextChange={handleTextChange}
-                    text={text}
-                    isOpen={false}
-                  />
-                );
-              })}
-            <RaycastingHandler handleModelClick={handleModelClick} />
-          </React.Suspense>
+              );
+            })}
+          <RaycastingHandler handleModelClick={handleModelClick} />
           <OrbitControls target={[0, 0, 0]} enableDamping={false} />
           <DirectionalLightFollowingCamera />
         </Canvas>

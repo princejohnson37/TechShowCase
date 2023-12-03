@@ -1,9 +1,9 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/no-unknown-property */
-import PropTypes from "prop-types";
 import TextBox from "../TextBox/TextBox";
 import { useState } from "react";
 
-const RedDots = ({ position, handleTextChange, text = "", isOpen = false }) => {
+const RedDots = ({ position, setText, text, isOpen }) => {
   const [isDotClicked, setIsDotClicked] = useState(isOpen);
   return (
     <>
@@ -16,7 +16,7 @@ const RedDots = ({ position, handleTextChange, text = "", isOpen = false }) => {
       </mesh>
       {isDotClicked && (
         <TextBox
-          handleTextChange={handleTextChange}
+          setText={setText}
           text={text}
           position={position}
           setOpen={setIsDotClicked}
@@ -24,10 +24,6 @@ const RedDots = ({ position, handleTextChange, text = "", isOpen = false }) => {
       )}
     </>
   );
-};
-
-RedDots.propTypes = {
-  position: PropTypes.arrayOf(PropTypes.number).isRequired,
 };
 
 export default RedDots;

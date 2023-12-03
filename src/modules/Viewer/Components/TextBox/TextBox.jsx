@@ -1,8 +1,9 @@
 import { Html } from "@react-three/drei";
 import { postAnnotation } from "../../services/postAnnotation";
 
-const TextBox = ({ text, handleTextChange, position, setOpen }) => {
+const TextBox = ({ text, setText, position, setOpen }) => {
   const handleClose = () => {
+    setText("");
     setOpen(false);
   };
   return (
@@ -11,7 +12,7 @@ const TextBox = ({ text, handleTextChange, position, setOpen }) => {
         <input
           type="text"
           value={text}
-          onChange={handleTextChange}
+          onChange={(event) => setText(event.target.value)}
           placeholder="Type here"
         />
         <button onClick={handleClose}>cancel</button>

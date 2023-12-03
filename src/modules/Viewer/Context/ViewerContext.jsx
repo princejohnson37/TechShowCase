@@ -1,7 +1,7 @@
 // // useRaycaster.js
-import React from 'react';
-import * as THREE from 'three';
-import PropTypes from 'prop-types'; 
+import React, { useState } from "react";
+import * as THREE from "three";
+import PropTypes from "prop-types";
 
 const ViewerContext = React.createContext(undefined);
 
@@ -12,9 +12,10 @@ export const useViewerContext = () => {
     throw new Error("used outside provider");
   }
   return context;
-}
+};
 
 export const ViewerProvider = ({ children }) => {
+  const [text, setText] = useState("");
   const raycaster = new THREE.Raycaster();
   const modelRef = React.useRef();
   const postTime = React.useState(false);
@@ -33,20 +34,20 @@ export const ViewerProvider = ({ children }) => {
     }
 
     return null;
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const values = {
     modelRef,
     getIntersectPoint,
-    postTime
+    postTime,
+    text,
+    setText,
   };
   return (
-    <ViewerContext.Provider value ={values}>
-      {children}
-    </ViewerContext.Provider>
+    <ViewerContext.Provider value={values}>{children}</ViewerContext.Provider>
   );
-} 
+};
 
 ViewerProvider.propTypes = {
   children: PropTypes.node.isRequired,
