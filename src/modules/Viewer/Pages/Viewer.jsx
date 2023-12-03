@@ -4,12 +4,11 @@ import { Canvas } from "@react-three/fiber";
 import { Loader, OrbitControls } from "@react-three/drei";
 import GLBModel from "../Components/GlbLoader";
 import SideMenu from "../Components/SideMenu/SideMenu";
-import TextBox from "../Components/TextBox/TextBox";
 import RedDots from "../Components/RedDots/RedDots";
 import { DirectionalLightFollowingCamera } from "../Components/DirectionalLight";
 import { SIDE_MENU_BTNS } from "../constants";
 import RaycastingHandler from "../Components/RayCastingHandler";
-import { postAnnotation } from "../services/postAnnotation";
+import { getAllData } from "../../../services/getAllData";
 
 const Viewer = () => {
   const [mode, setMode] = useState(SIDE_MENU_BTNS.viewAnnotationBtn.btnId);
@@ -21,8 +20,9 @@ const Viewer = () => {
     setText(event.target.value);
   };
   useEffect(() => {
-    console.log("mode changed to - ", mode);
-  }, [mode]);
+    const data = getAllData();
+    console.log(data);
+  }, []);
 
   const handleBtnClick = (buttonId) => {
     switch (buttonId) {
@@ -69,21 +69,27 @@ const Viewer = () => {
           <directionalLight position={[0, 10, 5]} intensity={1} />
           <React.Suspense fallback={null}>
             <GLBModel glbPath={"/models/wolf_skull.glb"} />
-            {mode === SIDE_MENU_BTNS.annotationBtn.btnId && isClicked && (
-              <>
-                <TextBox
+            {mode === SIDE_MENU_BTNS.annotationBtn.btnId &&
+              isClicked &&
+              dots.length > 0 && (
+                <RedDots
+                  position={dots[dots.length - 1]}
                   text={text}
                   handleTextChange={handleTextChange}
-                  position={dots[dots.length - 1]}
+                  isOpen={true}
                 />
-                {dots.length > 0 && (
-                  <RedDots position={dots[dots.length - 1]} />
-                )}
-              </>
-            )}
+              )}
             {mode === SIDE_MENU_BTNS.viewAnnotationBtn.btnId &&
               dots.map((coordinates, index) => {
-                return <RedDots key={index} position={coordinates} />;
+                return (
+                  <RedDots
+                    key={index}
+                    position={coordinates}
+                    handleTextChange={handleTextChange}
+                    text={text}
+                    isOpen={false}
+                  />
+                );
               })}
             <RaycastingHandler handleModelClick={handleModelClick} />
           </React.Suspense>

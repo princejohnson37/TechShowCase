@@ -1,27 +1,24 @@
 import { Html } from "@react-three/drei";
+import { postAnnotation } from "../../services/postAnnotation";
 
-const TextBox = ({ text, handleTextChange, position }) => {
-  const cords = { ...position };
-  // cords.y -= 0.05;
+const TextBox = ({ text, handleTextChange, position, setOpen }) => {
+  const handleClose = () => {
+    setOpen(false);
+  };
   return (
     <Html position={position}>
-      <div
-      // style={{
-      //   position: "absolute",
-      //   top: "50%",
-      //   left: "50%",
-      //   transform: "translate(-50%, -50%)",
-      // }}
-      >
+      <div>
         <input
           type="text"
           value={text}
           onChange={handleTextChange}
           placeholder="Type here"
         />
+        <button onClick={handleClose}>cancel</button>
         <button
           onClick={() => {
-            const data = {};
+            postAnnotation(position, text);
+            handleClose();
           }}
         >
           ok

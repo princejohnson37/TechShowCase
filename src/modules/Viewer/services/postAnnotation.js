@@ -1,26 +1,19 @@
 // api.js
-import Axios from 'axios';
+import { axiosInstance } from "../../../services/axiosInstance";
 
-const axiosInstance = Axios.create({
-  baseURL: 'http://localhost:8000', // Replace with your server base URL
-  headers: {
-    'Content-Type': 'application/json'
-  }
-});
-
-export const postAnnotation = async (dots) => {
-  const payload ={
-    "note": 'notes',
-    "coordinates": dots,
-    "file_id": 1
+export const postAnnotation = async (dots, note) => {
+  const payload = {
+    note: note,
+    coordinates: dots,
+    file_id: 1,
   };
-  console.log("payload --> ",payload);
+  console.log("payload --> ", payload);
   try {
-    console.log('post');
-    const response = await axiosInstance.post('/annotations', payload);
+    const response = await axiosInstance.post("/annotations", payload);
+    console.log("post request success", response.data);
     return response.data;
   } catch (error) {
-    console.error('Error sending dots to server:', error);
-    throw error; 
+    console.error("Error sending request to server:", error);
+    throw error;
   }
 };
