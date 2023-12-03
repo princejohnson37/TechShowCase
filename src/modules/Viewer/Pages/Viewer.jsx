@@ -114,6 +114,7 @@ const Viewer = () => {
                   setText={setText}
                   text={values.note}
                   isOpen={false}
+                  view={true}
                 />
               );
             })}
