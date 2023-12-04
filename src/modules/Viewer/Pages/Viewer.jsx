@@ -18,10 +18,6 @@ const Viewer = () => {
   const [dots, setDots] = useState([]);
   const [isClicked, setIsClicked] = useState(false);
 
-  const handleTextChange = (event) => {
-    setText(event.target.value);
-  };
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -36,10 +32,9 @@ const Viewer = () => {
       return new Vector3(coordinates.x, coordinates.y, coordinates.z);
     };
 
-    const data = fetchData().then((response) => {
-      console.log("response", response);
+    const fetchDataAndSetDots = async () => {
+      const response = await fetchData();
 
-      // Convert coordinates to Vector3 and include other data
       const dotsWithCoordinates = response.map((item) => ({
         coordinates: convertCoordinatesToVector3(item.coordinates),
         note: item.note,
@@ -48,24 +43,29 @@ const Viewer = () => {
       }));
 
       setDots(dotsWithCoordinates);
-    });
+    };
+
+    fetchDataAndSetDots();
+
+    let fetchDataInterval;
+
+    if (mode === SIDE_MENU_BTNS.viewAnnotationBtn.btnId) {
+       fetchDataInterval = setInterval(fetchDataAndSetDots, 3000);
+    }
+
+    return () => clearInterval(fetchDataInterval);
   }, [mode]);
 
   const handleBtnClick = (buttonId) => {
     switch (buttonId) {
       case SIDE_MENU_BTNS.annotationBtn.btnId:
-        // if (mode === SIDE_MENU_BTNS.annotationBtn.btnId) {
-        //   setMode("");
-        //   return;
-        // }
         setMode(SIDE_MENU_BTNS.annotationBtn.btnId);
         break;
       case SIDE_MENU_BTNS.viewAnnotationBtn.btnId:
-        // if (mode === SIDE_MENU_BTNS.viewAnnotationBtn.btnId) {
-        //   setMode("");
-        //   return;
-        // }
         setMode(SIDE_MENU_BTNS.viewAnnotationBtn.btnId);
+        break;
+      case SIDE_MENU_BTNS.viewMode.btnId:
+        setMode(SIDE_MENU_BTNS.viewMode.btnId);
         break;
       default:
         break;
@@ -106,10 +106,10 @@ const Viewer = () => {
               />
             )}
           {mode === SIDE_MENU_BTNS.viewAnnotationBtn.btnId &&
-            dots.map((values, index) => {
+            dots.map((values) => {
               return (
                 <RedDots
-                  key={index}
+                  key={values.id}
                   position={values.coordinates}
                   setText={setText}
                   text={values.note}

@@ -7,4 +7,8 @@ export const SIDE_MENU_BTNS = {
     btnId: "view_annotation",
     btnText: "View Annotations",
   },
+  viewMode : {
+    btnId: "view_mode",
+    btnText: "View Mode",
+  }
 };
