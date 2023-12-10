@@ -1,27 +1,33 @@
-import { useState } from "react";
 import "./HomePage.css";
 import { useNavigate } from "react-router";
+import { useGetFiles } from "../../../services/useGetFiles";
 
 const HomePage = () => {
   const navigate = useNavigate();
-  // eslint-disable-next-line no-unused-vars
-  const [projectList, setProjectList] = useState([
-    { projectName: "First Project" },
-    { projectName: "Second Project" },
-  ]);
+  const { data, isFetching, isLoading } = useGetFiles();
+
   const cardClickHandler = () => {
     navigate("/viewer");
   };
-
+  if (isLoading || isFetching) {
+    return <div>Loading...</div>;
+  }
   return (
     <div className="grid-view">
-      {projectList.map((project, index) => {
-        return (
-          <div key={index} className="homepage-card" onClick={cardClickHandler}>
-            {project.projectName}
-          </div>
-        );
-      })}
+      {data &&
+        data.length > 0 &&
+        data.map((project) => {
+          return (
+            <div
+              key={project?.id}
+              className="homepage-card"
+              onClick={cardClickHandler}
+              onKeyDown={cardClickHandler}
+            >
+              {project?.path}
+            </div>
+          );
+        })}
     </div>
   );
 };

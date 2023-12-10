@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unknown-property */
 import { Vector3 } from "three";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Loader, OrbitControls } from "@react-three/drei";
 import GLBModel from "../Components/GlbLoader";
@@ -10,7 +10,6 @@ import { DirectionalLightFollowingCamera } from "../Components/DirectionalLight"
 import { SIDE_MENU_BTNS } from "../constants";
 import RaycastingHandler from "../Components/RayCastingHandler";
 import { getAllData } from "../../../services/getAllData";
-import { generateUUID } from "three/src/math/MathUtils";
 
 const Viewer = () => {
   const [mode, setMode] = useState("");
