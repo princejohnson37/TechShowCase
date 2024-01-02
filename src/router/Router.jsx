@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import HomePage from "../modules/Home/pages/HomePage";
 import Viewer from "../modules/Viewer/Pages/Viewer";
+import Login from "../modules/Login/pages/Login";
 
 const router = createBrowserRouter([
   {
@@ -11,6 +12,10 @@ const router = createBrowserRouter([
     path: "/viewer",
     element: <Viewer/>,
   },
+  {
+    path: "/login",
+    element: <Login/>,
+  }
 ]);
 
 export default router;
