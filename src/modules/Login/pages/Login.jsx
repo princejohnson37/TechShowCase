@@ -3,6 +3,7 @@ import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Card } from 'primereact/card';
 import './Login.css'
+import userLogin from '../services/auth';
 
 const Login = () => {
   const [userDetails, setUserDetails] = useState({});
@@ -18,6 +19,7 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('User Details:', userDetails);
+	userLogin(userDetails);
   };
 
   return (
