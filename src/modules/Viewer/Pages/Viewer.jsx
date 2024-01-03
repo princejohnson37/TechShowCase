@@ -20,7 +20,6 @@ const convertCoordinatesToVector3 = (coordinates) => {
 
 const Viewer = () => {
 	const id = useParams().id;
-	console.log(id)
 
 	const [subscribe, unsubscribe, sendMessage] = useContext(WebSocketContext);
 
