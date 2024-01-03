@@ -9,25 +9,17 @@ import RedDots from "../Components/RedDots/RedDots";
 import { DirectionalLightFollowingCamera } from "../Components/DirectionalLight";
 import { SIDE_MENU_BTNS } from "../constants";
 import RaycastingHandler from "../Components/RayCastingHandler";
-import { getAllData } from "../../../services/getAllData";
 import { useParams } from "react-router-dom";
 import { WebSocketContext } from "../Context/WebSocketContext";
 
-const fetchData = async () => {
-	try {
-		const response = await getAllData();
-		return response;
-	} catch (error) {
-		console.error("Error fetching data:", error);
-	}
-};
+
 
 const convertCoordinatesToVector3 = (coordinates) => {
 	return new Vector3(coordinates.x, coordinates.y, coordinates.z);
 };
 
 const Viewer = () => {
-	const id = useParams();
+	const id = useParams().id;
 	console.log(id)
 
 	const [subscribe, unsubscribe, sendMessage] = useContext(WebSocketContext);
@@ -123,7 +115,7 @@ const Viewer = () => {
 					camera={{ fov: 75, position: [1, 0.5, 0] }}
 				>
 					<directionalLight position={[0, 10, 5]} intensity={1} />
-					<GLBModel glbPath={"/models/wolf_skull.glb"} />
+					<GLBModel glbPath={`http://localhost:8000/files/${id}/data`} />
 					{mode === SIDE_MENU_BTNS.annotationBtn.btnId && isClicked && dots.length > 0 && (
 						<RedDots position={dots[dots.length - 1]} text={text} setText={setText} isOpen={true} />
 					)}
