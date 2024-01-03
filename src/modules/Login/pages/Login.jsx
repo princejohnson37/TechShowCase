@@ -23,7 +23,7 @@ const Login = () => {
 		e.preventDefault();
 		try {
 			const isAuthenticated = await userLogin(userDetails);
-			if (isAuthenticated) navigate("/home");
+			if (isAuthenticated) navigate("/");
 		} catch (error) {
 			console.error("Login failed:", error);
 		}
