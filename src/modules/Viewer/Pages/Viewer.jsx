@@ -27,8 +27,8 @@ const convertCoordinatesToVector3 = (coordinates) => {
 };
 
 const Viewer = () => {
-	// const id =  useParams();
-	const id = "1";
+	const id = useParams();
+	console.log(id)
 
 	const [subscribe, unsubscribe, sendMessage] = useContext(WebSocketContext);
 
@@ -117,9 +117,9 @@ const Viewer = () => {
 			>
 				<Loader />
 				<Canvas
-				style={{
-					width:"100vw"
-				}}
+					style={{
+						width: "100vw",
+					}}
 					camera={{ fov: 75, position: [1, 0.5, 0] }}
 				>
 					<directionalLight position={[0, 10, 5]} intensity={1} />

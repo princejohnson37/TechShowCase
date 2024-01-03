@@ -10,7 +10,7 @@ const router = createBrowserRouter([
 		element: <HomePage />,
 	},
 	{
-		path: "/viewer",
+		path: "/viewer/:id",
 		element: (
 			<WebSocketProvider>
 				<Viewer />,

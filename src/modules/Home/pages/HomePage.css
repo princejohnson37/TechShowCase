@@ -15,4 +15,12 @@
   height: 300px;
   cursor: pointer;
   text-align: center;
+  color: #ccc;
+}
+
+.home-page{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: flex-start;
 }
