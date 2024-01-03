@@ -114,7 +114,7 @@ const Viewer = () => {
 					camera={{ fov: 75, position: [1, 0.5, 0] }}
 				>
 					<directionalLight position={[0, 10, 5]} intensity={1} />
-					<GLBModel glbPath={`http://3.133.143.99:8000/files/${id}/data`} />
+					<GLBModel glbPath={`https://3.133.143.99:8000/files/${id}/data`} />
 					{mode === SIDE_MENU_BTNS.annotationBtn.btnId && isClicked && dots.length > 0 && (
 						<RedDots position={dots[dots.length - 1]} text={text} setText={setText} isOpen={true} />
 					)}
