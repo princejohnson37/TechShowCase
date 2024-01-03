@@ -19,7 +19,9 @@ ObjModel.propTypes = {
 export default function ObjModelLoader({ objPath }) {
 
   return (
-    <Canvas>
+    <Canvas style={{
+		width:"1000px"
+	}}>
       <ambientLight intensity={0.5} />
       <pointLight position={[10, 10, 10]} />
       <React.Suspense fallback={null}>

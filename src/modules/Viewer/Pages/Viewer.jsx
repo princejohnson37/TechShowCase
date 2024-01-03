@@ -43,7 +43,7 @@ const Viewer = () => {
 		if (mode === SIDE_MENU_BTNS.viewAnnotationBtn.btnId) {
 			sendMessage({
 				type: "VIEW_ANNOTATION",
-			})
+			});
 			subscribe(id, (data) => {
 				const dotsWithCoordinates = data.map((item) => ({
 					coordinates: convertCoordinatesToVector3(item.coordinates),
@@ -55,8 +55,7 @@ const Viewer = () => {
 				// addDots(data);
 				console.log(dots);
 			});
-		}
-		else unsubscribe(id);
+		} else unsubscribe(id);
 		return () => {
 			unsubscribe(id);
 		};
@@ -113,11 +112,16 @@ const Viewer = () => {
 			<SideMenu handleBtnClick={handleBtnClick} mode={mode} />
 			<div
 				style={{
-					height: "100vh",
+					height: "95vh",
 				}}
 			>
 				<Loader />
-				<Canvas camera={{ fov: 75, position: [1, 0.5, 0] }}>
+				<Canvas
+				style={{
+					width:"100vw"
+				}}
+					camera={{ fov: 75, position: [1, 0.5, 0] }}
+				>
 					<directionalLight position={[0, 10, 5]} intensity={1} />
 					<GLBModel glbPath={"/models/wolf_skull.glb"} />
 					{mode === SIDE_MENU_BTNS.annotationBtn.btnId && isClicked && dots.length > 0 && (
