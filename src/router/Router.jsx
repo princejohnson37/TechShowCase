@@ -7,6 +7,10 @@ import Login from "../modules/Login/pages/Login";
 const router = createBrowserRouter([
 	{
 		path: "/",
+		element: <Login />,
+	},
+	{
+		path: "/home",
 		element: <HomePage />,
 	},
 	{
@@ -19,7 +23,7 @@ const router = createBrowserRouter([
 	},
 	{
 		path: "/login",
-		element: <Login/>,
+		element: <Login />,
 	},
 ]);
 
