@@ -1,11 +1,10 @@
-// api.js
 import { axiosInstance } from "../../../services/axiosInstance";
 
-export const postAnnotation = async (dots, note) => {
+export const postAnnotation = async (dots, note, id) => {
   const payload = {
     note: note,
     coordinates: dots,
-    file_id: 1,
+    project_id: id,
   };
   console.log("payload --> ", payload);
   try {

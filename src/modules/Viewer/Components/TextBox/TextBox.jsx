@@ -3,12 +3,17 @@ import { postAnnotation } from "../../services/postAnnotation";
 import "./TextBox.css";
 import { useContext } from "react";
 import { WebSocketContext } from "../../Context/WebSocketContext";
+import { useViewerContext } from "../../Context/ViewerContext";
 
 const TextBox = ({ text, setText, position, setOpen, view = false }) => {
 	const [, , sendMessage] = useContext(WebSocketContext);
+	const { fileId: id } = useViewerContext();
 	const handleClose = () => {
 		setText("");
 		setOpen(false);
+		sendMessage({
+			type: "add_annotation",
+		});
 	};
 	return (
 		<Html position={position}>
@@ -26,7 +31,7 @@ const TextBox = ({ text, setText, position, setOpen, view = false }) => {
 						<button onClick={handleClose}>cancel</button>
 						<button
 							onClick={() => {
-								postAnnotation(position, text);
+								postAnnotation(position, text, id);
 								handleClose();
 								sendMessage({
 									type: "add_annotation",

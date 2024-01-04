@@ -1,6 +1,6 @@
 export const GET = {
-  all_data: "/projects/1/annotations/",
-  all_files: "/files",
+//   all_data: `/projects/${id}/annotations/`,
+  all_projects: "/projects",
 };
 
 export const AUTH_POST = {

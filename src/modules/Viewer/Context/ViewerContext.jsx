@@ -19,6 +19,7 @@ export const ViewerProvider = ({ children }) => {
   const raycaster = new THREE.Raycaster();
   const modelRef = React.useRef();
   const postTime = React.useState(false);
+  const [fileId, setFileId] = React.useState(null)
   const getIntersectPoint = React.useCallback((event, camera) => {
     if (!modelRef.current) return null;
 
@@ -43,6 +44,8 @@ export const ViewerProvider = ({ children }) => {
     postTime,
     text,
     setText,
+	fileId,
+	setFileId
   };
   return (
     <ViewerContext.Provider value={values}>{children}</ViewerContext.Provider>

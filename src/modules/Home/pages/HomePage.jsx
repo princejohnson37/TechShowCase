@@ -3,6 +3,7 @@ import { Button } from "primereact/button";
 import AddNewProject from "../Components/AddNewProject";
 import { useGetFiles } from "../../../services/useGetFiles";
 import "./HomePage.css";
+import { useViewerContext } from "../../Viewer/Context/ViewerContext";
 
 const HomePage = () => {
 	const navigate = useNavigate();
@@ -28,14 +29,15 @@ const HomePage = () => {
 					data.length > 0 &&
 					data.map((project) => (
 						<button
-							key={project?.id}
+							key={project?.uuid}
 							className='homepage-card'
-							onClick={() => cardClickHandler(project?.id)}
-							onKeyDown={() => cardClickHandler(project?.id)}
+							onClick={() => cardClickHandler(project?.uuid)}
+							onKeyDown={() => cardClickHandler(project?.uuid)}
 						>
-							{project?.path}
+							{project?.name}
 						</button>
-					))}
+					))
+					}
 				<AddNewProject />
 			</div>
 			<Button onClick={logOuthandler}>LogOut</Button>

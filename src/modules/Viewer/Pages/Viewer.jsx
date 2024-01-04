@@ -11,8 +11,9 @@ import { SIDE_MENU_BTNS } from "../constants";
 import RaycastingHandler from "../Components/RayCastingHandler";
 import { useParams } from "react-router-dom";
 import { WebSocketContext } from "../Context/WebSocketContext";
-
-
+import { generateUUID } from "three/src/math/MathUtils";
+import { useViewerContext } from "../Context/ViewerContext";
+import { axiosInstance } from "../../../services/axiosInstance";
 
 const convertCoordinatesToVector3 = (coordinates) => {
 	return new Vector3(coordinates.x, coordinates.y, coordinates.z);
@@ -21,7 +22,14 @@ const convertCoordinatesToVector3 = (coordinates) => {
 const Viewer = () => {
 	const id = useParams().id;
 
+	// api call for getting id
+	const getProjectDetails = async () => {
+		const respose = await axiosInstance.get(`/projects/${id}`);
+		setFileId(respose?.data?.id);
+	};
+
 	const [subscribe, unsubscribe, sendMessage] = useContext(WebSocketContext);
+	const { fileId, setFileId } = useViewerContext();
 
 	const [mode, setMode] = useState("");
 	const [text, setText] = useState("");
@@ -29,19 +37,22 @@ const Viewer = () => {
 	const [isClicked, setIsClicked] = useState(false);
 
 	const addDots = (data) => setDots(data);
+	useEffect(() => {
+		getProjectDetails();
+	}, []);
 
 	useEffect(() => {
 		if (mode === SIDE_MENU_BTNS.viewAnnotationBtn.btnId) {
 			sendMessage({
 				type: "VIEW_ANNOTATION",
 			});
-			subscribe(id, (data) => {
+			subscribe(fileId, (data) => {
 				const dotsWithCoordinates = data.map((item) => ({
 					coordinates: convertCoordinatesToVector3(item.coordinates),
 					note: item.note,
-					file_id: item.file_id,
 					id: item.id,
 				}));
+				console.log(dotsWithCoordinates)
 				addDots(dotsWithCoordinates);
 				// addDots(data);
 				console.log(dots);
@@ -114,7 +125,9 @@ const Viewer = () => {
 					camera={{ fov: 75, position: [1, 0.5, 0] }}
 				>
 					<directionalLight position={[0, 10, 5]} intensity={1} />
-					<GLBModel glbPath={`http://localhost:8000/projects/${id}/data`} />
+					<GLBModel
+						glbPath={`http://localhost:8000/projects/${fileId}/data`}
+					/>
 					{mode === SIDE_MENU_BTNS.annotationBtn.btnId && isClicked && dots.length > 0 && (
 						<RedDots position={dots[dots.length - 1]} text={text} setText={setText} isOpen={true} />
 					)}

@@ -8,7 +8,7 @@ const useUploadFile = () => {
 		const formData = new FormData();
 		formData.append("file", file);
 
-		return axiosInstance.post("/files", formData, {
+		return axiosInstance.post("/projects", formData, {
 			headers: {
 				"Content-Type": "multipart/form-data",
 			},
@@ -16,7 +16,7 @@ const useUploadFile = () => {
 	};
 	const mutation = useMutation({
 		mutationFn: uploadFile,
-		onSuccess: () => queryClient.invalidateQueries({ queryKey: ["files"] }),
+		onSuccess: () => queryClient.invalidateQueries({ queryKey: ["projects"] }),
 	});
 	return mutation;
 };

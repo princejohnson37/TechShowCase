@@ -1,9 +1,8 @@
 import { axiosInstance } from "./axiosInstance";
-import { GET } from "./endpoints";
 
-export const getAllData = async () => {
+export const getAllData = async (id) => {
   try {
-    const response = await axiosInstance.get(GET.all_data);
+    const response = await axiosInstance.get(`/projects/${id}/annotations/`);
     console.log("get request success", response.data);
     return response.data;
   } catch (error) {
