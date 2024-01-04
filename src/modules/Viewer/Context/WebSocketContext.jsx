@@ -19,7 +19,7 @@ const WebSocketProvider = ({ children }) => {
 	};
 
 	useEffect(() => {
-		ws.current = new WebSocket("ws://127.0.0.1:8000/files/1/annotations");
+		ws.current = new WebSocket("ws://127.0.0.1:8000/projects/1/annotations");
 		ws.current.onopen = () => {
 			console.log("WS open");
 			// Example: sending a message when the WebSocket is opened
