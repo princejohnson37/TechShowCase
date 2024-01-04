@@ -11,7 +11,6 @@ import { SIDE_MENU_BTNS } from "../constants";
 import RaycastingHandler from "../Components/RayCastingHandler";
 import { useParams } from "react-router-dom";
 import { WebSocketContext } from "../Context/WebSocketContext";
-import { generateUUID } from "three/src/math/MathUtils";
 import { useViewerContext } from "../Context/ViewerContext";
 import { axiosInstance } from "../../../services/axiosInstance";
 
@@ -61,6 +60,7 @@ const Viewer = () => {
 		return () => {
 			unsubscribe(id);
 		};
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [mode, subscribe]);
 
 	// useEffect(() => {
@@ -108,9 +108,9 @@ const Viewer = () => {
 			setIsClicked(true);
 		}
 	};
-
 	return (
 		<>
+   
 			<SideMenu handleBtnClick={handleBtnClick} mode={mode} />
 			<div
 				style={{
@@ -136,6 +136,7 @@ const Viewer = () => {
 							return (
 								<RedDots
 									key={values.id}
+                  id={values.id}
 									position={values.coordinates}
 									setText={setText}
 									text={values.note}

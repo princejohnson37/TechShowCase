@@ -3,7 +3,7 @@
 import TextBox from "../TextBox/TextBox";
 import { useState } from "react";
 
-const RedDots = ({ position, setText, text, isOpen, view }) => {
+const RedDots = ({ position, setText, text, isOpen, view, id }) => {
   const [isDotClicked, setIsDotClicked] = useState(isOpen);
   return (
     <>
@@ -16,6 +16,7 @@ const RedDots = ({ position, setText, text, isOpen, view }) => {
       </mesh>
       {isDotClicked && (
         <TextBox
+          id={id}
           setText={setText}
           text={text}
           position={position}

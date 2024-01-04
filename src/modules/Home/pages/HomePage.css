@@ -1,9 +1,66 @@
+/* Global Styles */
+body {
+  margin: 0;
+  /* Padding top should equal the navbar's height to prevent content hiding behind it */
+  padding-top: 60px;
+  /* justify-content: space-between !important; */
+}
+
+/* Navbar Styles */
+.navbar {
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+  justify-content: space-between;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  height: auto; /* Adjust or remove the height */
+}
+
+.navbar-content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between; /* This ensures the title and button are on opposite ends */
+}
+
+.navbar-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* Home Container Styles */
+.home-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items:center ;
+  height: 100vh;
+  /* Removed redundant padding-top as it's already set in body */
+}
+
+/* Home Page Styles */
+.home-page {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%; /* Adjust width as needed */
+}
+
+/* Grid View Styles */
 .grid-view {
   display: flex;
   flex-direction: row;
   gap: 12px;
+  flex-wrap: wrap;
 }
 
+/* Homepage Card Styles */
 .homepage-card {
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -15,12 +72,11 @@
   height: 300px;
   cursor: pointer;
   text-align: center;
-  color: #ccc;
+  color: #fff;
+  padding: 10px;
+  transition: transform 0.3s;
 }
 
-.home-page{
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: flex-start;
+.homepage-card:hover {
+  transform: scale(1.05);
 }

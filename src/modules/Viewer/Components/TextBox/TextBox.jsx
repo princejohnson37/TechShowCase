@@ -1,9 +1,11 @@
 import { Html } from "@react-three/drei";
+import PropTypes from 'prop-types';
 import { postAnnotation } from "../../services/postAnnotation";
 import "./TextBox.css";
 import { useContext } from "react";
 import { WebSocketContext } from "../../Context/WebSocketContext";
 import { useViewerContext } from "../../Context/ViewerContext";
+import { deleteAnnotation } from "../../services/deleteAnnotation";
 
 const TextBox = ({ text, setText, position, setOpen, view = false }) => {
 	const [, , sendMessage] = useContext(WebSocketContext);
@@ -15,6 +17,10 @@ const TextBox = ({ text, setText, position, setOpen, view = false }) => {
 			type: "add_annotation",
 		});
 	};
+  const handleDelete = () => { 
+    deleteAnnotation(id);
+    setOpen(false); 
+  };
 	return (
 		<Html position={position}>
 			<div className='text-box-div'>
@@ -27,7 +33,7 @@ const TextBox = ({ text, setText, position, setOpen, view = false }) => {
 					readOnly={view}
 				/>
 				{!view ? (
-					<>
+					<div className="text-box-btn">
 						<button onClick={handleClose}>cancel</button>
 						<button
 							onClick={() => {
@@ -40,9 +46,14 @@ const TextBox = ({ text, setText, position, setOpen, view = false }) => {
 						>
 							ok
 						</button>
-					</>
+					</div>
 				) : (
+          <div className="text-box-btn">
 					<button onClick={handleClose}>close</button>
+          <button onClick={handleDelete} className="delete-button">
+                        delete
+                    </button>
+          </div>
 				)}
 			</div>
 		</Html>
@@ -50,3 +61,16 @@ const TextBox = ({ text, setText, position, setOpen, view = false }) => {
 };
 
 export default TextBox;
+
+TextBox.propTypes = {
+  text: PropTypes.string.isRequired,
+  setText: PropTypes.func.isRequired,
+  position: PropTypes.arrayOf(PropTypes.number).isRequired,
+  setOpen: PropTypes.func.isRequired,
+  view: PropTypes.bool,
+  id: PropTypes.string.isRequired,
+};
+
+TextBox.defaultProps = {
+  view: false
+};
