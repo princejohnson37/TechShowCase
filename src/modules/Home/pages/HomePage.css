@@ -47,18 +47,12 @@ body {
 .home-page {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: flex-start;
   width: 100%; /* Adjust width as needed */
-}
-
-/* Grid View Styles */
-.grid-view {
-  display: flex;
-  flex-direction: row;
-  gap: 12px;
   flex-wrap: wrap;
 }
+
 
 /* Homepage Card Styles */
 .homepage-card {
@@ -68,8 +62,8 @@ body {
   margin: 16px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   background-color: rgba(232, 202, 202, 0.1);
-  width: 300px;
-  height: 300px;
+  width: 200px;
+  height: 200px;
   cursor: pointer;
   text-align: center;
   color: #fff;
@@ -80,3 +74,4 @@ body {
 .homepage-card:hover {
   transform: scale(1.05);
 }
+

@@ -3,9 +3,7 @@ import { axiosInstance } from "./axiosInstance";
 import { GET } from "./endpoints";
 
 const getFiles = () => {
-  const response = axiosInstance.get(GET.all_projects);
-  console.log(response);
-  return response.then((res) => res.data);
+  return axiosInstance.get(GET.all_projects);
 };
 export const useGetFiles = () => {
   const query = useQuery({

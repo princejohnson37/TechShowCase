@@ -4,11 +4,13 @@ import { queryClient } from "../../../services/queryClient";
 import { axiosInstance } from "../../../services/axiosInstance";
 
 const useUploadFile = () => {
-	const uploadFile = async (file) => {
+	const uploadFile = async (payload) => {
+		const { file, projectUUID } = payload;
 		const formData = new FormData();
 		formData.append("file", file);
+		console.log(projectUUID);
 
-		return axiosInstance.post("/projects", formData, {
+		return axiosInstance.post(`/projects/${projectUUID}/files`, formData, {
 			headers: {
 				"Content-Type": "multipart/form-data",
 			},
@@ -21,8 +23,8 @@ const useUploadFile = () => {
 	return mutation;
 };
 
-useUploadFile.propTypes = {
-	file: PropTypes.instanceOf(File),
-};
+// useUploadFile.propTypes = {
+// 	file: PropTypes.instanceOf(File),
+// };
 
 export default useUploadFile;
