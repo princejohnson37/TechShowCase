@@ -1,5 +1,6 @@
 import { createContext, useEffect, useRef } from "react";
 import { useViewerContext } from "./ViewerContext";
+import { WS_URL } from "../../../utils/constants";
 
 const WebSocketContext = createContext();
 
@@ -23,7 +24,7 @@ const WebSocketProvider = ({ children }) => {
 	};
 
 	useEffect(() => {
-		ws.current = new WebSocket(`ws://localhost:8000/projects/${id}/annotations`);
+		ws.current = new WebSocket(`${WS_URL}/projects/${id}/annotations`);
 		ws.current.onopen = () => {
 			console.log("WS open");
 			// Example: sending a message when the WebSocket is opened

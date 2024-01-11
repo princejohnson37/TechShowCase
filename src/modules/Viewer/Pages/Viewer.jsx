@@ -13,6 +13,7 @@ import { useParams } from "react-router-dom";
 import { WebSocketContext } from "../Context/WebSocketContext";
 import { useViewerContext } from "../Context/ViewerContext";
 import { axiosInstance } from "../../../services/axiosInstance";
+import { WEBSERVER_URL } from "../../../utils/constants";
 
 const convertCoordinatesToVector3 = (coordinates) => {
 	return new Vector3(coordinates.x, coordinates.y, coordinates.z);
@@ -126,7 +127,7 @@ const Viewer = () => {
 					camera={{ fov: 75, position: [1, 0.5, 0] }}
 				>
 					<directionalLight position={[0, 10, 5]} intensity={1} />
-					<GLBModel glbPath={`http://localhost:8000/files/${fileId}`} />
+					<GLBModel glbPath={`${WEBSERVER_URL}/files/${fileId}`} />
 					{mode === SIDE_MENU_BTNS.annotationBtn.btnId && isClicked && dots.length > 0 && (
 						<RedDots position={dots[dots.length - 1]} text={text} setText={setText} isOpen={true} />
 					)}

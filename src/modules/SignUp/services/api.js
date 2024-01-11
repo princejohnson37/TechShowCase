@@ -1,8 +1,8 @@
 import axios from "axios";
-
+import { WEBSERVER_URL } from "../../../utils/constants";
 const userSignUp = async (authData) => {
 	try {
-		const response = await axios.post("http://localhost:8000" + "/user", authData, {
+		const response = await axios.post(WEBSERVER_URL + "/user", authData, {
 			headers: {
 				"Content-Type": "application/json",
 			},

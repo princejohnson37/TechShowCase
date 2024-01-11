@@ -1,9 +1,10 @@
 import axios from "axios";
 import { AUTH_POST } from "../../../services/endpoints";
+import { WEBSERVER_URL } from "../../../utils/constants";
 
 const userLogin = async (authData) => {
 	try {
-		const response = await axios.post("http://localhost:8000" + AUTH_POST.login, authData, {
+		const response = await axios.post(WEBSERVER_URL + AUTH_POST.login, authData, {
 			headers: {
 				"Content-Type": "application/x-www-form-urlencoded",
 			},
