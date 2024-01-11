@@ -2,7 +2,7 @@
 import { Vector3 } from "three";
 import { useContext, useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
-import { Loader, OrbitControls } from "@react-three/drei";
+import { Html, Loader, OrbitControls } from "@react-three/drei";
 import GLBModel from "../Components/GlbLoader";
 import SideMenu from "../Components/SideMenu/SideMenu";
 import RedDots from "../Components/RedDots/RedDots";
@@ -40,6 +40,18 @@ const Viewer = () => {
 	const addDots = (data) => setDots(data);
 	useEffect(() => {
 		getProjectDetails();
+	}, []);
+
+	useEffect(() => {
+		const sendMessage = (message) => {
+			console.log("Message sent:", message);
+		};
+		const intervalId = setInterval(() => {
+			sendMessage({
+				type: "VIEW_ANNOTATION",
+			});
+		}, 20000); // 2000 milliseconds = 2 seconds
+		return () => clearInterval(intervalId);
 	}, []);
 
 	useEffect(() => {
@@ -111,9 +123,12 @@ const Viewer = () => {
 			setIsClicked(true);
 		}
 	};
+
 	return (
 		<>
-			<SideMenu handleBtnClick={handleBtnClick} mode={mode} />
+			<div>
+				<SideMenu handleBtnClick={handleBtnClick} mode={mode} />
+			</div>
 			<div
 				style={{
 					height: "95vh",
@@ -129,7 +144,12 @@ const Viewer = () => {
 					<directionalLight position={[0, 10, 5]} intensity={1} />
 					<GLBModel glbPath={`${WEBSERVER_URL}/files/${fileId}`} />
 					{mode === SIDE_MENU_BTNS.annotationBtn.btnId && isClicked && dots.length > 0 && (
-						<RedDots position={dots[dots.length - 1]} text={text} setText={setText} isOpen={true} />
+						<RedDots
+							position={dots[dots.length - 1]}
+							text={text}
+							setText={setText}
+							isOpen={isClicked}
+						/>
 					)}
 					{mode === SIDE_MENU_BTNS.viewAnnotationBtn.btnId &&
 						dots.map((values) => {
