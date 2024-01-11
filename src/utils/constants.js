@@ -1,0 +1,1 @@
+export const WEBSERVER_URL = 'http://localhost:8000/';

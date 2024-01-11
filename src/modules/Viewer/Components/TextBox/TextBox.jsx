@@ -7,9 +7,9 @@ import { WebSocketContext } from "../../Context/WebSocketContext";
 import { useViewerContext } from "../../Context/ViewerContext";
 import { deleteAnnotation } from "../../services/deleteAnnotation";
 
-const TextBox = ({ text, setText, position, setOpen, view = false, id }) => {
+const TextBox = ({ text, setText, position, setOpen, view = false, annotationId }) => {
 	const [, , sendMessage] = useContext(WebSocketContext);
-	const { fileId } = useViewerContext();
+	const { projectId } = useViewerContext();
 	const handleClose = () => {
 		setText("");
 		setOpen(false);
@@ -18,7 +18,7 @@ const TextBox = ({ text, setText, position, setOpen, view = false, id }) => {
 		});
 	};
   const handleDelete = () => { 
-    deleteAnnotation(id);
+    deleteAnnotation(annotationId);
     setOpen(false); 
   };
 	return (
@@ -37,7 +37,7 @@ const TextBox = ({ text, setText, position, setOpen, view = false, id }) => {
 						<button onClick={handleClose}>cancel</button>
 						<button
 							onClick={() => {
-								postAnnotation(position, text, fileId);
+								postAnnotation(position, text, projectId);
 								handleClose();
 								sendMessage({
 									type: "add_annotation",
@@ -68,7 +68,7 @@ TextBox.propTypes = {
   position: PropTypes.arrayOf(PropTypes.number).isRequired,
   setOpen: PropTypes.func.isRequired,
   view: PropTypes.bool,
-  id: PropTypes.string.isRequired,
+  annotationId: PropTypes.string,
 };
 
 TextBox.defaultProps = {

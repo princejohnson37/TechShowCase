@@ -20,12 +20,13 @@ const convertCoordinatesToVector3 = (coordinates) => {
 
 const Viewer = () => {
 	const projectId = useParams().id;
-	const { fileId, setFileId } = useViewerContext();
+	const { fileId, setFileId, setProjectId } = useViewerContext();
 
 	// api call for getting id
 	const getProjectDetails = async () => {
 		const response = await axiosInstance.get(`/projects/${projectId}`);
 		setFileId(response?.data?.files[0]?.id);
+		setProjectId(projectId);
 	};
 
 	const [subscribe, unsubscribe, sendMessage] = useContext(WebSocketContext);
@@ -51,7 +52,7 @@ const Viewer = () => {
 					note: item.note,
 					id: item.id,
 				}));
-				console.log(dotsWithCoordinates)
+				console.log(dotsWithCoordinates);
 				addDots(dotsWithCoordinates);
 				// addDots(data);
 				console.log(dots);
@@ -60,7 +61,7 @@ const Viewer = () => {
 		return () => {
 			unsubscribe(fileId);
 		};
-	// eslint-disable-next-line react-hooks/exhaustive-deps
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [mode, subscribe]);
 
 	// useEffect(() => {
@@ -110,7 +111,6 @@ const Viewer = () => {
 	};
 	return (
 		<>
-   
 			<SideMenu handleBtnClick={handleBtnClick} mode={mode} />
 			<div
 				style={{
@@ -125,9 +125,7 @@ const Viewer = () => {
 					camera={{ fov: 75, position: [1, 0.5, 0] }}
 				>
 					<directionalLight position={[0, 10, 5]} intensity={1} />
-					<GLBModel
-						glbPath={`http://localhost:8000/files/${fileId}`}
-					/>
+					<GLBModel glbPath={`http://localhost:8000/files/${fileId}`} />
 					{mode === SIDE_MENU_BTNS.annotationBtn.btnId && isClicked && dots.length > 0 && (
 						<RedDots position={dots[dots.length - 1]} text={text} setText={setText} isOpen={true} />
 					)}
@@ -136,7 +134,7 @@ const Viewer = () => {
 							return (
 								<RedDots
 									key={values.id}
-                  id={values.id}
+									id={values.id}
 									position={values.coordinates}
 									setText={setText}
 									text={values.note}

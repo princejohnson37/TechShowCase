@@ -20,6 +20,7 @@ export const ViewerProvider = ({ children }) => {
   const modelRef = React.useRef();
   const postTime = React.useState(false);
   const [fileId, setFileId] = React.useState(null)
+  const [projectId, setProjectId] = React.useState(null);
   const getIntersectPoint = React.useCallback((event, camera) => {
     if (!modelRef.current) return null;
 
@@ -45,7 +46,9 @@ export const ViewerProvider = ({ children }) => {
     text,
     setText,
 	fileId,
-	setFileId
+	setFileId,
+	projectId,
+	setProjectId
   };
   return (
     <ViewerContext.Provider value={values}>{children}</ViewerContext.Provider>

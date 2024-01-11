@@ -9,7 +9,6 @@ import usePostProjectName from "../hooks/usePostProjectName";
 
 const AddNewProject = () => {
 	const [file, setFile] = useState(null);
-	const [projectId, setProjectId] = useState("");
 	const fileInputRef = useRef(null);
 	const { mutate: upload, isLoading, isError } = useUploadFile();
 	const { mutate: postProjectName } = usePostProjectName();
