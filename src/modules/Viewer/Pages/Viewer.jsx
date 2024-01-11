@@ -46,7 +46,8 @@ const Viewer = () => {
 			sendMessage({
 				type: "VIEW_ANNOTATION",
 			});
-			subscribe(fileId, (data) => {
+			subscribe(projectId, (data) => {
+				console.log(data);
 				const dotsWithCoordinates = data.map((item) => ({
 					coordinates: convertCoordinatesToVector3(item.coordinates),
 					note: item.note,
@@ -57,9 +58,9 @@ const Viewer = () => {
 				// addDots(data);
 				console.log(dots);
 			});
-		} else unsubscribe(fileId);
+		} else unsubscribe(projectId);
 		return () => {
-			unsubscribe(fileId);
+			unsubscribe(projectId);
 		};
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [mode, subscribe]);

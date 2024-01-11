@@ -5,7 +5,7 @@ const WebSocketContext = createContext();
 
 const WebSocketProvider = ({ children }) => {
 	
-	const { fileId: id } = useViewerContext();
+	const { projectId: id } = useViewerContext();
 
 	const ws = useRef(null);
 	const channels = useRef({}); // maps each channel to the callback
@@ -23,7 +23,7 @@ const WebSocketProvider = ({ children }) => {
 	};
 
 	useEffect(() => {
-		ws.current = new WebSocket(`ws://127.0.0.1:8000/projects/${id}/annotations`);
+		ws.current = new WebSocket(`ws://localhost:8000/projects/${id}/annotations`);
 		ws.current.onopen = () => {
 			console.log("WS open");
 			// Example: sending a message when the WebSocket is opened
