@@ -6,8 +6,8 @@ import "./SideMenu.css";
 const SideMenu = ({ handleBtnClick, mode }) => {
   const [active, setActive] = useState(mode);
   return (
-    <div className="">
-      <div className="w-100">
+    <div className="side-menu-outer">
+      <div className="">
         {Object.values(SIDE_MENU_BTNS).map((button) => {
           return (
             <button

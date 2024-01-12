@@ -86,7 +86,7 @@ const HomePage = () => {
         }}
       >
         <div className="title">
-          <h1>My Files</h1>
+          <h1>My Projects</h1>
         </div>
         <div
           className="owned-by"
