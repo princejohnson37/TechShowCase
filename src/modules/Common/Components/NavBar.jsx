@@ -11,7 +11,7 @@ const NavBar = () => {
     <>
       <nav className='navbar'>
 				<div className='navbar-content'>
-					<div className='navbar-title'>3D Tool</div>
+					<div className='navbar-title' style={{ cursor: 'pointer' }}onClick={() =>navigate("/home") }>3D Tool</div>
 					<div className='navbar-btn'>
 						<Button onClick={logOuthandler} className='logout-button'>
 							LogOut

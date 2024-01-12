@@ -6,6 +6,21 @@ import './CustomCard.css';
 
 const CustomCard = ({ project, onOpenClick }) => {
   console.log('project', project);
+  const Users = () => {
+    if(project.shared_users.length  > 1) {
+      console.log('here');
+      return <span className="pi pi-users"></span>
+    }
+    else if(project.shared_users.length === 1 ) {
+    if(project.shared_users[0].username !== project.owner.username) {
+      console.log('here here', project.shared_users[0].username, project.owner.username);
+      return <span className="pi pi-users"></span>
+    }
+    }
+    else {
+      console.log('HERRRRRRRR');
+    return <></>}
+  };
   return (
     <div className='custom-card-container'>
       <div className='custom-card-header' >
@@ -20,7 +35,7 @@ const CustomCard = ({ project, onOpenClick }) => {
           <Button label="open" onClick={onOpenClick} />
         </div>
         <div>
-        <span className="pi pi-users"></span>
+          <Users />
         </div>
       </div>
     </div>

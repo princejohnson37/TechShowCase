@@ -4,6 +4,7 @@ import { WS_URL } from "../../../utils/constants";
 
 const WebSocketContext = createContext();
 
+// eslint-disable-next-line react/prop-types
 const WebSocketProvider = ({ children }) => {
 	
 	const { projectId: id } = useViewerContext();

@@ -5,6 +5,7 @@ import { useState } from "react";
 
 const RedDots = ({ position, setText, text, isOpen, view, id }) => {
 	const [isDotClicked, setIsDotClicked] = useState(isOpen);
+  // console.log("position --> ", position);
 	return (
 		<>
 			<mesh position={position} onClick={() => setIsDotClicked((prev) => !prev)}>

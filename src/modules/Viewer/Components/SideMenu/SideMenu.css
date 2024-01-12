@@ -2,17 +2,17 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 200px;
+  width: 100px;
   background-color: #f0f0f00c;
-  padding: 20px;
+  /* padding: 20px; */
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   z-index: 2;
 }
 
 .side-menu-btn {
   display: block;
-  width: 100%;
-  padding: 10px;
+  width: 90%;
+  /* padding: 10px; */
   margin-bottom: 10px;
   font-size: 16px;
   background-color: #777;

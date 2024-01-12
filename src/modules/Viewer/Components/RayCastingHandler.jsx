@@ -11,7 +11,7 @@ const RaycastingHandler = ({ handleModelClick }) => {
   const handleDoubleClick = useCallback(
     (event) => {
       const intersectPoint = getIntersectPoint(event, camera);
-      console.log("intersectPoint", intersectPoint);
+      // console.log("intersectPoint", intersectPoint);
       if (intersectPoint) {
         handleModelClick(intersectPoint);
       }
@@ -20,7 +20,7 @@ const RaycastingHandler = ({ handleModelClick }) => {
   );
 
   useEffect(() => {
-    window.addEventListener("dblclick", handleDoubleClick);
+    window.addEventListener("dbclick", handleDoubleClick);
     return () => window.removeEventListener("dblclick", handleDoubleClick);
   }, [handleDoubleClick]);
 

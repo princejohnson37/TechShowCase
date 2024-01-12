@@ -25,9 +25,9 @@ export const ViewerProvider = ({ children }) => {
     if (!modelRef.current) return null;
 
     const mouse = new THREE.Vector2();
-    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-
+    mouse.x = (event.clientX / window.innerWidth) * 2 -1 ;
+    mouse.y = -(event.clientY / window.innerHeight) * 2 +1;
+    // console.log(mouse.x, mouse.y);
     raycaster.setFromCamera(mouse, camera);
     const intersects = raycaster.intersectObject(modelRef.current, true);
 

@@ -6,7 +6,7 @@ import "./SideMenu.css";
 const SideMenu = ({ handleBtnClick, mode }) => {
   const [active, setActive] = useState(mode);
   return (
-    <div className="side-menu-outer">
+    <div className="">
       <div className="w-100">
         {Object.values(SIDE_MENU_BTNS).map((button) => {
           return (
@@ -24,7 +24,7 @@ const SideMenu = ({ handleBtnClick, mode }) => {
           );
         })}
       </div>
-      <div className="side-menu-footer">
+      <div className="side-menu-footer" style={{ paddingLeft: '5%', marginBottom: '5%' }}>
         {mode != "" ? `Mode : ${mode}` : ""}
       </div>
     </div>
