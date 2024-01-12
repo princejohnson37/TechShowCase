@@ -24,8 +24,8 @@
   transition: 0.5s;
 }
 
-.credential-div {
-  margin-bottom: 20px;
+.login-credential-div {
+  margin-bottom: 15px;
 }
 
 label {
@@ -46,7 +46,7 @@ label {
 }
 
 .login-btn {
-  width: 100px;
+  width: 100%;
   border: none;
   background-color: #794bc4;
   border-radius: 5px;
@@ -55,7 +55,7 @@ label {
   font-weight: bold;
   color: white;
   transition: 0.5s;
-  margin-top: 10px;
+  margin-top: 20px;
   margin-left: 0px;
   height:45px;
 }

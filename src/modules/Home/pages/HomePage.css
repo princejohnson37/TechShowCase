@@ -2,7 +2,7 @@
 body {
   margin: 0;
   /* Padding top should equal the navbar's height to prevent content hiding behind it */
-  padding-top: 60px;
+  /* padding-top: 60px; */
   /* justify-content: space-between !important; */
 }
 
@@ -51,6 +51,9 @@ body {
   align-items: flex-start;
   width: 100%; /* Adjust width as needed */
   flex-wrap: wrap;
+}
+.create-pro{
+  justify-content: center !important;
 }
 
 

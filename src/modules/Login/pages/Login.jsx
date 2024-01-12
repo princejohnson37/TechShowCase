@@ -34,11 +34,11 @@ const Login = () => {
       <Card className='login-card' title='Login'>
         <form onSubmit={handleSubmit} className='p-d-flex p-flex-column'>
 			<label htmlFor='username'>Username</label>
-			<div className='credential-div'>
+			<div className='login-credential-div'>
 				<InputText className="username" id='username' name='username' type='text' onChange={handleInputChange} />
 			</div>
 			<label htmlFor='password'>Password</label>
-			<div className='credential-div'>
+			<div className='login-credential-div'>
 				<InputText className="password" id='password' name='password' type='password' onChange={handleInputChange} />
 			</div>
 

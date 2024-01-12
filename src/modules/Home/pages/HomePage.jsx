@@ -82,6 +82,7 @@ const HomePage = () => {
           justifyContent: "space-between",
           paddingLeft: "3%",
           paddingRight: "3%",
+          paddingTop: "60px"
         }}
       >
         <div className="title">
@@ -101,7 +102,7 @@ const HomePage = () => {
         </div>
       </div>
       <div className="home-container">
-        <div className="home-page">
+        <div className="home-page create-pro">
           <AddNewProject />
           {displayData &&
             displayData.map((project) => (

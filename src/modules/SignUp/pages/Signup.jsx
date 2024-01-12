@@ -46,6 +46,7 @@ const Signup = () => {
   };
 
   return (
+    <div className='login-container p-d-flex p-jc-center p-ai-center p-h-100'>
     <div className="p-d-flex p-jc-center p-ai-center p-h-100">
       <Toast ref={toast} />
       <Card className="login-card" title="Sign Up">
@@ -115,6 +116,7 @@ const Signup = () => {
           </a>
         </form>
       </Card>
+    </div>
     </div>
   );
 };
