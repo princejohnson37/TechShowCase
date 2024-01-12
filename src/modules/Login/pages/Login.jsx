@@ -30,7 +30,7 @@ const Login = () => {
   };
 
   return (
-    <div className='p-d-flex p-jc-center p-ai-center p-h-100'>
+    <div className='login-container p-d-flex p-jc-center p-ai-center p-h-100'>
       <Card className='login-card' title='Login'>
         <form onSubmit={handleSubmit} className='p-d-flex p-flex-column'>
 			<label htmlFor='username'>Username</label>

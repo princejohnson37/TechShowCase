@@ -75,3 +75,28 @@ body {
   transform: scale(1.05);
 }
 
+
+.dark-dropdown {
+  background-color: black; /* Dark background */
+  height: 50%; /* Adjust the width as needed */
+  width: 100%
+  /* Add other styling as needed */
+}
+.dark-dropdown .p-dropdown-label {
+  color: #fff;
+}
+.p-dropdown-panel{
+  background-color: #000000;
+  color:#ffffff
+}
+/* Optional: Style the dropdown items */
+/* .dark-dropdown .p-dropdown-items {
+  background-color: #333;
+  color: white;
+} */
+
+/* Optional: Style for hover and active states */
+/* .dark-dropdown .p-dropdown-item:hover,
+.dark-dropdown .p-dropdown-item.p-highlight {
+  background-color: #555;
+} */

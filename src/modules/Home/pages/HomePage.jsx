@@ -1,35 +1,44 @@
+import React from "react";
 import { useNavigate } from "react-router";
-import { Button } from "primereact/button";
 import AddNewProject from "../Components/AddNewProject";
 import { useGetFiles } from "../../../services/useGetFiles";
 import "./HomePage.css";
 import ProjectCard from "../Components/ProjectCard";
+import NavBar from "../../Common/NavBar";
+
+import { Dropdown } from 'primereact/dropdown';
+        
+        
 
 const HomePage = () => {
 	const navigate = useNavigate();
 	const { data } = useGetFiles();
-
+  React.useEffect(()=> console.log(data), [data]);
+  
 	const cardClickHandler = (projectId) => {
 		navigate(`/viewer/${projectId}`);
 	};
-
-	const logOuthandler = () => {
-		localStorage.clear();
-		navigate("/login");
-	};
-
 	return (
 		<>
-			<nav className='navbar'>
-				<div className='navbar-content'>
-					<div className='navbar-title'>3D Tool</div>
-					<div className='navbar-btn'>
-						<Button onClick={logOuthandler} className='logout-button'>
-							LogOut
-						</Button>
-					</div>
-				</div>
-			</nav>
+			<NavBar />
+      <div
+        className="title-bar"
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          paddingLeft: '3%',
+          paddingRight: "3%"
+        }}
+      >
+        <div className="title">
+          <h1>
+            My Files
+          </h1>
+        </div>
+        <div className="owned-by" style={{ display: 'flex' ,alignItems: 'center' }}>
+          <Dropdown className="dark-dropdown" size="small"  value={'by anyone'} options={['by anyone', 'by me', 'not by me']} />
+        </div>
+      </div>
 			<div className='home-container'>
 				<div className='home-page'>
 					<AddNewProject />
