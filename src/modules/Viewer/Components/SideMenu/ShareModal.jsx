@@ -6,7 +6,7 @@ import { Toast } from "primereact/toast";
 
 // eslint-disable-next-line react/prop-types
 const ShareModal = ({ visible, setVisible, projectId }) => {
-  const [link, setLink] = useState(`http://localhost:5173/viewer/${projectId}/search?load=true`);
+  const [link, setLink] = useState(`http://localhost:5173/viewer/${projectId}`);
   const [code, setCode] = useState(projectId);
   const toast = useRef(null);
 
