@@ -7,7 +7,7 @@ import { RouterProvider } from "react-router-dom";
 import { PrimeReactProvider } from "primereact/api";
 import "./App.css";
 
-function App() {
+function App() { 
 	return (
 		<QueryClientProvider client={queryClient}>
 			<PrimeReactProvider>
